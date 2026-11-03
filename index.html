@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>PyRevit Icon Studio</title>
+  <style>
+    :root{--bg:#0b1220;--panel:#121c2d;--panel2:#172338;--line:#26364d;--muted:#96a7bd;--text:#edf4fb;--green:#86d47c;--green2:#b0ee91;--cyan:#75d5d0;--danger:#ffb4a8}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(ellipse at 12% 0%,#172b3e 0,transparent 36%),linear-gradient(145deg,#09111e,#101b2b 62%,#0a1421);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+    .shell{max-width:1180px;margin:auto;padding:28px 24px 56px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:58px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.2px}
+    .brandmark{width:40px;height:40px;border-radius:12px;background:linear-gradient(145deg,#a1ec86,#45a88b);display:grid;place-items:center;color:#09201d;font-weight:900;box-shadow:0 8px 24px #4ebf8750}
+    .brand small{display:block;color:var(--muted);font-size:11px;font-weight:550;letter-spacing:1.4px;text-transform:uppercase;margin-top:1px}
+    .local-pill{font-size:12px;color:#c3d3e3;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:#101a29}
+    .hero{max-width:760px;margin:0 0 32px}
+    .eyebrow{color:var(--green2);font-size:12px;font-weight:750;letter-spacing:1.7px;text-transform:uppercase;margin-bottom:12px}
+    h1{font-size:clamp(34px,5vw,56px);line-height:1.06;letter-spacing:-1.9px;margin:0 0 17px;font-weight:780}
+    h1 span{color:var(--green2)}
+    .hero p{color:#b6c5d7;font-size:17px;max-width:650px;margin:0}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);gap:20px;align-items:start}
+    .panel{background:linear-gradient(160deg,#142034f2,#101a2af5);border:1px solid #293a50;border-radius:20px;box-shadow:0 18px 55px #02071155;overflow:hidden}
+    .panel-head{padding:20px 22px 16px;border-bottom:1px solid #26364b;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .panel-head h2{font-size:16px;margin:0;font-weight:720}
+    .step{font-size:11px;color:#91a6bd;letter-spacing:1.3px;text-transform:uppercase}
+    .panel-body{padding:22px}
+    .dropzone{border:1.5px dashed #55718d;border-radius:16px;background:linear-gradient(145deg,#192b40,#142338);padding:30px 20px;text-align:center;transition:.18s;cursor:pointer;outline:none}
+    .dropzone:hover,.dropzone.drag{border-color:var(--green);background:#1a3041}
+    .upload-icon{width:48px;height:48px;border-radius:14px;background:#254239;color:var(--green2);display:grid;place-items:center;margin:0 auto 13px}
+    .dropzone strong{display:block;font-size:16px;margin-bottom:4px}
+    .dropzone p{color:#9eb1c7;margin:0;font-size:13px}
+    .browse{color:var(--green2);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+    input[type=file]{display:none}
+    .filebar{display:none;margin-top:14px;padding:11px 13px;background:#0f1a29;border:1px solid #2b4058;border-radius:12px;align-items:center;justify-content:space-between;gap:12px}
+    .filebar.show{display:flex}
+    .filemeta{min-width:0}.filename{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.filesize{font-size:11px;color:var(--muted)}
+    .text-btn{border:0;background:none;color:#a8d99a;font-weight:700;cursor:pointer;padding:5px 7px}
+    .analysis{margin-top:18px;display:none}.analysis.show{display:block}
+    .analysis h3{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#9eb3c9;margin:0 0 9px}
+    .detected{padding:14px 15px;background:#101d2c;border:1px solid #2b4058;border-radius:13px}
+    .detected-title{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:750;margin-bottom:4px}
+    .detected p{color:#adc0d1;font-size:13px;margin:0}
+    .keywords{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;color:#b9d2cf;background:#203c3c;border:1px solid #315a55;padding:3px 8px;border-radius:99px}
+    .section-label{font-size:12px;color:#9eb3c9;letter-spacing:1.1px;text-transform:uppercase;font-weight:750;margin:23px 0 11px}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .field{min-width:0}.field.full{grid-column:1/-1}
+    label{display:block;font-size:12px;color:#c2d0de;font-weight:650;margin:0 0 7px}
+    input[type=text],select{width:100%;border:1px solid #32465f;background:#0c1726;color:#eef5fb;border-radius:10px;padding:11px 12px;font:inherit;font-size:13px;outline:none}
+    input[type=text]:focus,select:focus{border-color:#80c98c;box-shadow:0 0 0 3px #80c98c20}
+    .color-row{display:flex;gap:8px;align-items:center}
+    input[type=color]{width:45px;height:39px;padding:3px;border:1px solid #32465f;border-radius:9px;background:#0c1726;cursor:pointer}
+    .swatches{display:flex;gap:7px;flex-wrap:wrap}.swatch{width:23px;height:23px;border:2px solid #75879a55;border-radius:50%;cursor:pointer}.swatch:hover{outline:2px solid #d2e9dc;outline-offset:2px}
+    .right-panel{position:sticky;top:20px}
+    .preview-area{padding:28px 22px 22px;text-align:center;background:radial-gradient(ellipse at center,#24384a 0,#17273a 45%,#142034 78%)}
+    .icon-frame{width:168px;height:168px;margin:0 auto 17px;border-radius:27px;display:grid;place-items:center;background:#0d1928;border:1px solid #496078;box-shadow:0 18px 40px #02081480,inset 0 1px #ffffff12}
+    canvas{width:144px;height:144px;image-rendering:auto}
+    .preview-name{font-size:16px;font-weight:750;margin-bottom:3px}.preview-sub{font-size:12px;color:#9fb3c8}
+    .size-note{display:inline-flex;gap:6px;align-items:center;margin-top:13px;color:#b5c7d8;font-size:11px;background:#1a2b3d;border:1px solid #344b63;padding:5px 9px;border-radius:99px}
+    .actions{padding:18px 20px 20px;display:grid;gap:9px}
+    button{font:inherit;cursor:pointer;border:0;border-radius:11px;font-weight:760;transition:transform .15s,filter .15s}
+    button:active{transform:translateY(1px)}
+    .primary{background:linear-gradient(100deg,#9ce57f,#64c99d);color:#0b211a;padding:13px 16px;box-shadow:0 8px 20px #6bc98a2c}
+    .primary:hover{filter:brightness(1.06)}.primary:disabled{opacity:.42;cursor:not-allowed;filter:none}
+    .secondary{background:#1b2b40;border:1px solid #38516b;color:#d8e5f1;padding:12px 15px}.secondary:hover{background:#233951}
+    .hint{font-size:11px;color:#849bb2;text-align:center;margin:0}
+    .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+    .how article{padding:16px;border:1px solid #26384d;background:#101b2a99;border-radius:14px}
+    .how b{display:block;font-size:13px;margin-bottom:4px}.how p{font-size:12px;color:#9fb2c6;margin:0}
+    .num{color:var(--green2);font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:8px}
+    .privacy{display:flex;gap:8px;align-items:flex-start;margin-top:18px;color:#9bb0c5;font-size:12px}.privacy svg{flex:none;color:#8fdb9c;margin-top:1px}
+    .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#ddf8d8;color:#10251b;padding:10px 15px;border-radius:999px;font-size:13px;font-weight:750;box-shadow:0 10px 35px #0007;transition:.22s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    footer{border-top:1px solid #26364b;margin-top:28px;padding-top:17px;color:#8095ab;font-size:11px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    @media(max-width:850px){.workspace{grid-template-columns:1fr}.right-panel{position:static}.how{grid-template-columns:1fr}.hero{margin-bottom:25px}header{margin-bottom:42px}}
+    @media(max-width:520px){.shell{padding:19px 14px 38px}.panel-body{padding:16px}.panel-head{padding:17px}.controls{grid-template-columns:1fr}.field.full{grid-column:auto}.local-pill{display:none}h1{letter-spacing:-1.2px}.dropzone{padding:24px 14px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="brandmark">P</div><div>PyRevit Icon Studio<small>Script → Button Icon</small></div></div>
+      <div class="local-pill">● Browser-only processing</div>
+    </header>
+    <section class="hero">
+      <div class="eyebrow">A tiny studio for your PyRevit tools</div>
+      <h1>Give every script<br><span>its own button icon.</span></h1>
+      <p>Upload a Python script. The studio checks its names, comments and keywords, then builds a matching Revit-style icon you can customise and download.</p>
+    </section>
+
+    <main class="workspace">
+      <section class="panel">
+        <div class="panel-head"><h2>Build your icon</h2><span class="step">01 / Upload & customise</span></div>
+        <div class="panel-body">
+          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Choose a Python script">
+            <div class="upload-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M4 16.5v2A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-2"/></svg></div>
+            <strong>Drop your PyRevit script here</strong>
+            <p>or <span class="browse">browse files</span> to choose a .py file</p>
+            <p style="margin-top:10px;font-size:11px;color:#7f95ab">Python script · up to 2 MB</p>
+          </div>
+          <input id="fileInput" type="file" accept=".py,text/x-python,text/plain" />
+          <div class="filebar" id="filebar"><div class="filemeta"><div class="filename" id="filename">script.py</div><div class="filesize" id="filesize"></div></div><button class="text-btn" id="removeFile" type="button">Remove</button></div>
+          <div class="analysis" id="analysis">
+            <h3>What your script appears to do</h3>
+            <div class="detected"><div class="detected-title"><span id="detectIcon">✦</span><span id="detectedTitle">General Revit Tool</span></div><p id="detectedSummary">A general-purpose PyRevit utility.</p><div class="keywords" id="keywords"></div></div>
+          </div>
+          <div class="section-label">Customise the button icon</div>
+          <div class="controls">
+            <div class="field full"><label for="labelInput">Button label</label><input id="labelInput" type="text" maxlength="18" value="My Revit Tool" placeholder="e.g. View Transfer" /></div>
+            <div class="field"><label for="category">Icon symbol</label><select id="category">
+              <option value="auto">Auto-detect from script</option><option value="views">Views / Viewports</option><option value="sheets">Sheets / Drawing Sheets</option><option value="walls">Walls / Elements</option><option value="stairs">Stairs / Paths</option><option value="schedule">Schedules / Tables</option><option value="clash">Clash Detection</option><option value="export">Export / Output</option><option value="import">Import / Input</option><option value="door">Doors</option><option value="window">Windows</option><option value="tag">Tags / Annotations</option><option value="dimension">Dimensions</option><option value="level">Levels</option><option value="family">Families</option><option value="model">3D Model</option><option value="gear">General Utility</option>
+            </select></div>
+            <div class="field"><label for="style">Icon style</label><select id="style"><option value="glass">Soft 3D</option><option value="line">Clean line</option><option value="solid">Bold solid</option></select></div>
+            <div class="field full"><label>Accent colour</label><div class="color-row"><input type="color" id="color" value="#72d6a0" aria-label="Choose accent colour"/><div class="swatches" id="swatches"><button class="swatch" type="button" data-color="#72d6a0" style="background:#72d6a0" aria-label="Mint"></button><button class="swatch" type="button" data-color="#62b7f2" style="background:#62b7f2" aria-label="Blue"></button><button class="swatch" type="button" data-color="#b29aff" style="background:#b29aff" aria-label="Violet"></button><button class="swatch" type="button" data-color="#ffb86b" style="background:#ffb86b" aria-label="Orange"></button><button class="swatch" type="button" data-color="#f27f91" style="background:#f27f91" aria-label="Coral"></button><button class="swatch" type="button" data-color="#e8d66e" style="background:#e8d66e" aria-label="Gold"></button></div></div></div>
+          </div>
+          <div class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg><span>Your .py file is read locally by this page. It is not sent to a server, stored, or executed.</span></div>
+        </div>
+      </section>
+
+      <aside class="panel right-panel">
+        <div class="panel-head"><h2>Live preview</h2><span class="step">02 / Export</span></div>
+        <div class="preview-area">
+          <div class="icon-frame"><canvas id="iconCanvas" width="96" height="96" aria-label="96 by 96 pixel icon preview"></canvas></div>
+          <div class="preview-name" id="previewName">My Revit Tool</div><div class="preview-sub" id="previewSub">PyRevit pushbutton icon</div>
+          <div class="size-note"><span>▦</span> PNG · 96 × 96 px</div>
+        </div>
+        <div class="actions">
+          <button class="primary" id="downloadBtn" type="button">Download 96 × 96 PNG</button>
+          <button class="secondary" id="resetBtn" type="button">Reset icon settings</button>
+          <p class="hint">Designed for a clear, readable PyRevit ribbon button.</p>
+        </div>
+      </aside>
+    </main>
+
+    <section class="how" aria-label="How it works">
+      <article><div class="num">STEP 01</div><b>Upload a .py file</b><p>Choose any PyRevit script. The page reads the text without running it.</p></article>
+      <article><div class="num">STEP 02</div><b>Review & customise</b><p>Check the detected tool type, change the symbol, style, colour or label.</p></article>
+      <article><div class="num">STEP 03</div><b>Download & use</b><p>Export a 96 × 96 PNG and place it in your PyRevit button folder.</p></article>
+    </section>
+    <footer><span>PyRevit Icon Studio · Runs entirely in your browser</span><span>No Revit model access · No script execution · No upload storage</span></footer>
+  </div>
+  <div class="toast" id="toast">PNG downloaded</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const canvas = $('iconCanvas'), ctx = canvas.getContext('2d');
+  let currentFileName = '', currentText = '', detected = 'gear';
+  const patterns = [
+    ['clash', /clash|interference|collision|conflict|coordination|navisworks|overlap/gi, 'Clash Detection', 'Finds or reviews clashes and coordination issues.', '⚡'],
+    ['stairs', /stair|riser|tread|stairpath|stair_path|up.?down/gi, 'Stair Tools', 'Works with stairs, stair paths, arrows or stair annotations.', '↗'],
+    ['schedule', /schedule|schedul|tabular|table|takeoff|quantity|qty/gi, 'Schedule Tools', 'Creates, reads or manages Revit schedules and tabular data.', '▦'],
+    ['sheets', /sheet|title.?block|drawing.?list|sheet.?number|viewport|print.?set/gi, 'Sheet Tools', 'Works with sheets, title blocks, drawing lists or view placement.', '▤'],
+    ['views', /view|section|elevation|plan.?view|callout|crop.?region|view.?template/gi, 'View Tools', 'Works with Revit views, view templates, sections or viewports.', '◉'],
+    ['walls', /wall|floor|ceiling|roof|column|beam|element|host.?object/gi, 'Element Tools', 'Selects or manages building elements such as walls, floors or columns.', '⬡'],
+    ['door', /door|door.?tag/gi, 'Door Tools', 'Works with door elements, parameters or door tags.', '▯'],
+    ['window', /window|glazing|curtain.?wall/gi, 'Window Tools', 'Works with windows, glazing or curtain-wall elements.', '▣'],
+    ['tag', /tag|annotation|text.?note|keynote|callout.?tag/gi, 'Tag & Annotation Tools', 'Creates, checks or manages tags and annotations.', '◇'],
+    ['dimension', /dimension|spot.?elevation|measure|length.?value/gi, 'Dimension Tools', 'Works with dimensions, measurements or spot elevations.', '↔'],
+    ['level', /level|datum|grid.?line|reference.?plane/gi, 'Level & Datum Tools', 'Works with levels, grids or datum references.', '═'],
+    ['family', /family|nested|generic.?model|load.?family|parameter.?binding/gi, 'Family Tools', 'Works with Revit families, nested components or family parameters.', '⬡'],
+    ['export', /export|publish|save.?as|write.?file|csv|excel|xlsx|pdf|dwg|ifc/gi, 'Export Tools', 'Exports Revit information or files to another format.', '↗'],
+    ['import', /import|read.?file|load.?data|csv.?reader|excel.?reader|link.?file/gi, 'Import Tools', 'Reads or brings external data into a workflow.', '↙'],
+    ['model', /3d|model|geometry|solid|mesh|mass|directshape/gi, 'Model Tools', 'Works with model geometry or 3D building elements.', '⬢']
+  ];
+  const descriptions = {
+    clash:'Clash / coordination utility',stairs:'Stair / path utility',schedule:'Schedule / table utility',sheets:'Sheet / viewport utility',views:'View / viewport utility',walls:'Building element utility',door:'Door utility',window:'Window utility',tag:'Tag / annotation utility',dimension:'Dimension / measurement utility',level:'Level / datum utility',family:'Family / parameter utility',export:'Export / output utility',import:'Import / input utility',model:'3D model / geometry utility',gear:'General Revit utility'
+  };
+  const titles = {clash:'Clash Detection',stairs:'Stair Tools',schedule:'Schedule Tools',sheets:'Sheet Tools',views:'View Tools',walls:'Element Tools',door:'Door Tools',window:'Window Tools',tag:'Tag Tools',dimension:'Dimension Tools',level:'Level Tools',family:'Family Tools',export:'Export Tools',import:'Import Tools',model:'Model Tools',gear:'General Revit Tool'};
+  function infer(text) {
+    const body = text.toLowerCase();
+    const scored = patterns.map(([key,re]) => {re.lastIndex=0; const m=body.match(re); return {key,score:m?m.length:0};}).sort((a,b)=>b.score-a.score);
+    return scored[0] && scored[0].score > 0 ? scored[0].key : 'gear';
+  }
+  function humanize(s){return s.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());}
+  function analyse(text,name){
+    detected = infer(text);
+    const lines = text.split(/\r?\n/);
+    const candidates=[];
+    for(const line of lines){
+      const m=line.match(/^\s*#\s*(?:title|button|name|description|purpose)\s*[:=-]\s*(.{3,90})/i);
+      if(m)candidates.push(m[1].trim());
+    }
+    const classMatch=text.match(/^\s*class\s+([A-Za-z_][A-Za-z0-9_]*)/m);
+    const defMatches=[...text.matchAll(/^\s*def\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(/gm)].map(m=>m[1]).filter(n=>!['__init__','main','execute','script','get_logger','get_output','get_config'].includes(n));
+    const label = candidates[0] || (classMatch ? humanize(classMatch[1]) : (defMatches[0] ? humanize(defMatches[0]) : humanize(name.replace(/\.py$/i,''))));
+    $('labelInput').value = label.slice(0,18);
+    $('detectedTitle').textContent=titles[detected];
+    $('detectedSummary').textContent=descriptions[detected]+'. '+(candidates[0]?'Script title comment found.':'Detection is based on script keywords and names.');
+    $('detectIcon').textContent=patterns.find(p=>p[0]===detected)?.[3]||'✦';
+    const chips=[];
+    for(const [key,re] of patterns){re.lastIndex=0;if(re.test(text)){chips.push(titles[key].replace(' Tools',''));} if(chips.length>=4)break;}
+    $('keywords').innerHTML='';
+    (chips.length?chips:['General']).forEach(t=>{const s=document.createElement('span');s.className='chip';s.textContent=t;$('keywords').appendChild(s);});
+    $('analysis').classList.add('show');
+    $('category').value='auto';
+    render();
+  }
+  function hexRgb(hex){const n=parseInt(hex.slice(1),16);return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+  function shade(hex,amount){const c=hexRgb(hex);return `rgb(${Math.max(0,Math.min(255,c.r+amount))},${Math.max(0,Math.min(255,c.g+amount))},${Math.max(0,Math.min(255,c.b+amount))})`;}
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);}
+  function line(points,width=4){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}
+  function circle(x,y,r,fill=false){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);fill?ctx.fill():ctx.stroke();}
+  function drawGlyph(kind,style,color){
+    const solid=style==='solid', sw=solid?1:4.2;
+    ctx.save();ctx.translate(0,0);ctx.strokeStyle='#f4fbff';ctx.fillStyle='#f4fbff';ctx.lineWidth=sw;ctx.lineCap='round';ctx.lineJoin='round';
+    const fillShape=(path)=>{ctx.fill(path)};
+    switch(kind){
+      case 'views':
+        ctx.beginPath();ctx.moveTo(18,48);ctx.quadraticCurveTo(48,18,78,48);ctx.quadraticCurveTo(48,78,18,48);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.fillStyle=color;circle(48,48,10,true);ctx.fillStyle='#f4fbff';circle(48,48,4,true);break;
+      case 'sheets':
+        rr(25,16,47,64,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#203447':color;ctx.lineWidth=3;line([[35,32],[61,32]],3);line([[35,42],[61,42]],3);line([[35,52],[53,52]],3);rr(35,61,16,10,2);solid?ctx.fill():ctx.stroke();break;
+      case 'walls':
+        ctx.beginPath();ctx.moveTo(18,33);ctx.lineTo(48,17);ctx.lineTo(78,33);ctx.lineTo(48,50);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.beginPath();ctx.moveTo(18,33);ctx.lineTo(18,65);ctx.lineTo(48,82);ctx.lineTo(48,50);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.beginPath();ctx.moveTo(78,33);ctx.lineTo(78,65);ctx.lineTo(48,82);ctx.stroke();line([[33,25],[33,41]],2.4);line([[63,25],[63,41]],2.4);break;
+      case 'stairs':
+        line([[20,73],[34,73],[34,59],[48,59],[48,45],[62,45],[62,31],[77,31]],solid?7:4.5);line([[66,23],[77,31],[68,39]],3.5);break;
+      case 'schedule':
+        rr(17,22,62,52,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#203447':color;ctx.lineWidth=3;line([[17,38],[79,38]],3);line([[17,55],[79,55]],3);line([[38,22],[38,74]],3);line([[58,22],[58,74]],3);break;
+      case 'clash':
+        circle(38,48,19);circle(58,48,19);if(solid){ctx.fillStyle=color;circle(48,48,11,true);}else{line([[40,40],[56,56]],4);line([[56,40],[40,56]],4);}break;
+      case 'export':
+        rr(18,45,60,31,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle='#f4fbff';line([[48,63],[48,18]],4.5);line([[32,34],[48,18],[64,34]],4.5);break;
+      case 'import':
+        rr(18,22,60,31,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle='#f4fbff';line([[48,18],[48,63]],4.5);line([[32,48],[48,64],[64,48]],4.5);break;
+      case 'door':
+        ctx.beginPath();ctx.moveTo(28,78);ctx.lineTo(28,20);ctx.lineTo(67,20);ctx.lineTo(67,78);ctx.stroke();ctx.beginPath();ctx.moveTo(37,73);ctx.lineTo(37,28);ctx.lineTo(67,23);ctx.lineTo(67,78);ctx.stroke();circle(58,52,2.5,true);break;
+      case 'window':
+        rr(17,19,62,58,4);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#203447':color;ctx.lineWidth=4;line([[48,20],[48,76]],4);line([[18,48],[78,48]],4);break;
+      case 'tag':
+        ctx.beginPath();ctx.moveTo(18,29);ctx.lineTo(57,18);ctx.lineTo(79,40);ctx.lineTo(40,79);ctx.lineTo(18,57);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.fillStyle=solid?'#203447':color;circle(37,38,5,true);break;
+      case 'dimension':
+        line([[20,48],[76,48]],solid?7:3.5);line([[20,48],[31,38]],3.5);line([[20,48],[31,58]],3.5);line([[76,48],[65,38]],3.5);line([[76,48],[65,58]],3.5);line([[28,26],[28,70]],2.2);line([[68,26],[68,70]],2.2);break;
+      case 'level':
+        line([[20,28],[76,28]],solid?7:4);line([[20,48],[76,48]],solid?7:4);line([[20,68],[76,68]],solid?7:4);circle(28,28,4,true);circle(68,48,4,true);circle(40,68,4,true);break;
+      case 'family':
+        rr(23,23,50,50,8);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#203447':color;ctx.lineWidth=3;rr(37,37,22,22,5);solid?ctx.fill():ctx.stroke();line([[48,11],[48,23]],3);line([[48,73],[48,85]],3);line([[11,48],[23,48]],3);line([[73,48],[85,48]],3);break;
+      case 'model':
+        ctx.beginPath();ctx.moveTo(48,15);ctx.lineTo(78,32);ctx.lineTo(78,64);ctx.lineTo(48,81);ctx.lineTo(18,64);ctx.lineTo(18,32);ctx.closePath();solid?ctx.fill():ctx.stroke();line([[18,32],[48,49],[78,32]],3);line([[48,49],[48,81]],3);break;
+      default:
+        circle(48,48,22);circle(48,48,8);for(let i=0;i<8;i++){ctx.save();ctx.translate(48,48);ctx.rotate(i*Math.PI/4);rr(-5,-34,10,12,3);solid?ctx.fill():ctx.stroke();ctx.restore();}
+    }
+    ctx.restore();
+  }
+  function render(){
+    const kind=$('category').value==='auto'?detected:$('category').value;
+    const style=$('style').value,color=$('color').value;
+    ctx.clearRect(0,0,96,96);
+    const bg=ctx.createLinearGradient(8,6,88,91);bg.addColorStop(0,shade(color,30));bg.addColorStop(.45,shade(color,-42));bg.addColorStop(1,'#14253a');
+    rr(3,3,90,90,21);ctx.fillStyle=bg;ctx.fill();
+    if(style==='glass'){
+      ctx.save();rr(3,3,90,90,21);ctx.clip();const glow=ctx.createRadialGradient(29,18,1,40,34,70);glow.addColorStop(0,'#ffffff50');glow.addColorStop(1,'#ffffff00');ctx.fillStyle=glow;ctx.fillRect(0,0,96,96);ctx.restore();
+    }
+    ctx.strokeStyle='#ffffff40';ctx.lineWidth=1.3;rr(4,4,88,88,19);ctx.stroke();
+    ctx.save();ctx.translate(0,1);ctx.shadowColor='#04101c99';ctx.shadowBlur=5;ctx.shadowOffsetY=2;drawGlyph(kind,style,color);ctx.restore();
+    ctx.beginPath();ctx.arc(75,75,7,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();ctx.strokeStyle='#eafff2';ctx.lineWidth=1.5;ctx.stroke();
+    const label=$('labelInput').value.trim()||'My Revit Tool';$('previewName').textContent=label;$('previewSub').textContent=titles[kind]+' · PyRevit icon';
+  }
+  function readFile(file){
+    if(!file)return;
+    if(!/\.py$/i.test(file.name)){alert('Please choose a Python .py file.');return;}
+    if(file.size>2*1024*1024){alert('This file is larger than 2 MB. Please choose a smaller script.');return;}
+    const reader=new FileReader();
+    reader.onload=()=>{currentText=String(reader.result||'');currentFileName=file.name;$('filename').textContent=file.name;$('filesize').textContent=(file.size/1024).toFixed(1)+' KB · Read in this browser';$('filebar').classList.add('show');analyse(currentText,file.name);};
+    reader.onerror=()=>alert('The file could not be read. Please try another .py file.');reader.readAsText(file);
+  }
+  $('dropzone').addEventListener('click',()=>$('fileInput').click());
+  $('dropzone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('fileInput').click();}});
+  $('fileInput').addEventListener('change',e=>readFile(e.target.files[0]));
+  ['dragenter','dragover'].forEach(ev=>$('dropzone').addEventListener(ev,e=>{e.preventDefault();$('dropzone').classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>$('dropzone').addEventListener(ev,e=>{e.preventDefault();$('dropzone').classList.remove('drag');}));
+  $('dropzone').addEventListener('drop',e=>readFile(e.dataTransfer.files[0]));
+  $('removeFile').addEventListener('click',()=>{currentText='';currentFileName='';$('fileInput').value='';$('filebar').classList.remove('show');$('analysis').classList.remove('show');$('labelInput').value='My Revit Tool';$('category').value='auto';detected='gear';render();});
+  ['labelInput','category','style','color'].forEach(id=>$(id).addEventListener('input',render));
+  document.querySelectorAll('.swatch').forEach(b=>b.addEventListener('click',()=>{$('color').value=b.dataset.color;render();}));
+  $('downloadBtn').addEventListener('click',()=>{render();canvas.toBlob(blob=>{if(!blob){alert('Could not create the PNG.');return;}const a=document.createElement('a');const base=($('labelInput').value.trim()||'pyrevit-icon').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'pyrevit_icon';const url=URL.createObjectURL(blob);a.href=url;a.download=base+'_96x96.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('96 × 96 PNG downloaded');},'image/png');});
+  $('resetBtn').addEventListener('click',()=>{$('labelInput').value=currentFileName?humanize(currentFileName.replace(/\.py$/i,'' )).slice(0,18):'My Revit Tool';$('category').value='auto';$('style').value='glass';$('color').value='#72d6a0';render();});
+  function showToast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800);}
+  render();
+})();
+</script>
+</body>
+</html>
