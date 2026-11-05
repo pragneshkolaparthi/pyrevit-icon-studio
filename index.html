@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>PyRevit Icon Studio</title>
+  <style>
+    :root{--bg:#0b1220;--panel:#121c2d;--panel2:#172338;--line:#26364d;--muted:#96a7bd;--text:#edf4fb;--green:#86d47c;--green2:#b0ee91;--cyan:#75d5d0;--danger:#ffb4a8}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(ellipse at 12% 0%,#172b3e 0,transparent 36%),linear-gradient(145deg,#09111e,#101b2b 62%,#0a1421);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+    .shell{max-width:1180px;margin:auto;padding:28px 24px 56px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:58px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.2px}
+    .brandmark{width:40px;height:40px;border-radius:12px;background:linear-gradient(145deg,#a1ec86,#45a88b);display:grid;place-items:center;color:#09201d;font-weight:900;box-shadow:0 8px 24px #4ebf8750}
+    .brand small{display:block;color:var(--muted);font-size:11px;font-weight:550;letter-spacing:1.4px;text-transform:uppercase;margin-top:1px}
+    .local-pill{font-size:12px;color:#c3d3e3;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:#101a29}
+    .hero{max-width:760px;margin:0 0 32px}
+    .eyebrow{color:var(--green2);font-size:12px;font-weight:750;letter-spacing:1.7px;text-transform:uppercase;margin-bottom:12px}
+    h1{font-size:clamp(34px,5vw,56px);line-height:1.06;letter-spacing:-1.9px;margin:0 0 17px;font-weight:780}
+    h1 span{color:var(--green2)}
+    .hero p{color:#b6c5d7;font-size:17px;max-width:650px;margin:0}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);gap:20px;align-items:start}
+    .panel{background:linear-gradient(160deg,#142034f2,#101a2af5);border:1px solid #293a50;border-radius:20px;box-shadow:0 18px 55px #02071155;overflow:hidden}
+    .panel-head{padding:20px 22px 16px;border-bottom:1px solid #26364b;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .panel-head h2{font-size:16px;margin:0;font-weight:720}
+    .step{font-size:11px;color:#91a6bd;letter-spacing:1.3px;text-transform:uppercase}
+    .panel-body{padding:22px}
+    .dropzone{border:1.5px dashed #55718d;border-radius:16px;background:linear-gradient(145deg,#192b40,#142338);padding:30px 20px;text-align:center;transition:.18s;cursor:pointer;outline:none}
+    .dropzone:hover,.dropzone.drag{border-color:var(--green);background:#1a3041}
+    .upload-icon{width:48px;height:48px;border-radius:14px;background:#254239;color:var(--green2);display:grid;place-items:center;margin:0 auto 13px}
+    .dropzone strong{display:block;font-size:16px;margin-bottom:4px}
+    .dropzone p{color:#9eb1c7;margin:0;font-size:13px}
+    .browse{color:var(--green2);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+    input[type=file]{display:none}
+    .filebar{display:none;margin-top:14px;padding:11px 13px;background:#0f1a29;border:1px solid #2b4058;border-radius:12px;align-items:center;justify-content:space-between;gap:12px}
+    .filebar.show{display:flex}
+    .filemeta{min-width:0}.filename{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.filesize{font-size:11px;color:var(--muted)}
+    .text-btn{border:0;background:none;color:#a8d99a;font-weight:700;cursor:pointer;padding:5px 7px}
+    .analysis{margin-top:18px;display:none}.analysis.show{display:block}
+    .analysis h3{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#9eb3c9;margin:0 0 9px}
+    .detected{padding:14px 15px;background:#101d2c;border:1px solid #2b4058;border-radius:13px}
+    .detected-title{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:750;margin-bottom:4px}
+    .detected p{color:#adc0d1;font-size:13px;margin:0}
+    .keywords{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;color:#b9d2cf;background:#203c3c;border:1px solid #315a55;padding:3px 8px;border-radius:99px}
+    .workflow-card{margin-top:12px;padding:13px 14px;background:#172536;border:1px solid #32475d;border-radius:13px}
+    .workflow-heading{font-size:11px;color:#d2a16b;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+    .workflow-steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:7px}
+    .workflow-step{min-width:0;padding:8px 6px;background:#0d1928;border:1px solid #40536a;border-radius:9px;text-align:center}
+    .workflow-step span{display:block;color:#8b5a35;font-size:9px;font-weight:850;letter-spacing:1px}
+    .workflow-step b{display:block;color:#e6c39b;font-size:11px;line-height:1.25;overflow-wrap:anywhere}
+    .workflow-steps i{font-style:normal;color:#6f9e4d;font-size:14px;font-weight:900}
+    .workflow-note{font-size:10px;color:#8fa6bb;margin:9px 0 0;line-height:1.4}
+    .section-label{font-size:12px;color:#9eb3c9;letter-spacing:1.1px;text-transform:uppercase;font-weight:750;margin:23px 0 11px}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .field{min-width:0}.field.full{grid-column:1/-1}
+    label{display:block;font-size:12px;color:#c2d0de;font-weight:650;margin:0 0 7px}
+    input[type=text],select{width:100%;border:1px solid #32465f;background:#0c1726;color:#eef5fb;border-radius:10px;padding:11px 12px;font:inherit;font-size:13px;outline:none}
+    input[type=text]:focus,select:focus{border-color:#80c98c;box-shadow:0 0 0 3px #80c98c20}
+    .color-row{display:flex;gap:8px;align-items:center}
+    input[type=color]{width:45px;height:39px;padding:3px;border:1px solid #32465f;border-radius:9px;background:#0c1726;cursor:pointer}
+    .mascot-option{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid #34506a;background:#0e1b2b;border-radius:11px;color:#d7e6ef;font-size:13px;cursor:pointer}
+    .mascot-option input{width:17px;height:17px;accent-color:#8cd58b;flex:none}
+    .palette-note{font-size:11px;color:#8fa6bb;margin:6px 0 0 27px}
+    .swatches{display:flex;gap:7px;flex-wrap:wrap}.swatch{width:23px;height:23px;border:2px solid #75879a55;border-radius:50%;cursor:pointer}.swatch:hover{outline:2px solid #d2e9dc;outline-offset:2px}
+    .right-panel{position:sticky;top:20px}
+    .preview-area{padding:28px 22px 22px;text-align:center;background:radial-gradient(ellipse at center,#24384a 0,#17273a 45%,#142034 78%)}
+    .icon-frame{width:168px;height:168px;margin:0 auto 17px;border-radius:27px;display:grid;place-items:center;background:#0d1928;border:1px solid #496078;box-shadow:0 18px 40px #02081480,inset 0 1px #ffffff12}
+    canvas{width:144px;height:144px;image-rendering:auto}
+    .preview-name{font-size:16px;font-weight:750;margin-bottom:3px}.preview-sub{font-size:12px;color:#9fb3c8}
+    .size-note{display:inline-flex;gap:6px;align-items:center;margin-top:13px;color:#b5c7d8;font-size:11px;background:#1a2b3d;border:1px solid #344b63;padding:5px 9px;border-radius:99px}
+    .actions{padding:18px 20px 20px;display:grid;gap:9px}
+    button{font:inherit;cursor:pointer;border:0;border-radius:11px;font-weight:760;transition:transform .15s,filter .15s}
+    button:active{transform:translateY(1px)}
+    .primary{background:linear-gradient(100deg,#9ce57f,#64c99d);color:#0b211a;padding:13px 16px;box-shadow:0 8px 20px #6bc98a2c}
+    .primary:hover{filter:brightness(1.06)}.primary:disabled{opacity:.42;cursor:not-allowed;filter:none}
+    .secondary{background:#1b2b40;border:1px solid #38516b;color:#d8e5f1;padding:12px 15px}.secondary:hover{background:#233951}
+    .hint{font-size:11px;color:#849bb2;text-align:center;margin:0}
+    .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+    .how article{padding:16px;border:1px solid #26384d;background:#101b2a99;border-radius:14px}
+    .how b{display:block;font-size:13px;margin-bottom:4px}.how p{font-size:12px;color:#9fb2c6;margin:0}
+    .num{color:var(--green2);font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:8px}
+    .privacy{display:flex;gap:8px;align-items:flex-start;margin-top:18px;color:#9bb0c5;font-size:12px}.privacy svg{flex:none;color:#8fdb9c;margin-top:1px}
+    .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#ddf8d8;color:#10251b;padding:10px 15px;border-radius:999px;font-size:13px;font-weight:750;box-shadow:0 10px 35px #0007;transition:.22s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    footer{border-top:1px solid #26364b;margin-top:28px;padding-top:17px;color:#8095ab;font-size:11px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    @media(max-width:850px){.workspace{grid-template-columns:1fr}.right-panel{position:static}.how{grid-template-columns:1fr}.hero{margin-bottom:25px}header{margin-bottom:42px}}
+    @media(max-width:520px){.shell{padding:19px 14px 38px}.panel-body{padding:16px}.panel-head{padding:17px}.controls{grid-template-columns:1fr}.field.full{grid-column:auto}.local-pill{display:none}h1{letter-spacing:-1.2px}.dropzone{padding:24px 14px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="brandmark">P</div><div>PyRevit Icon Studio<small>Script → Revit Operation Icon</small></div></div>
+      <div class="local-pill">● Browser-only processing</div>
+    </header>
+    <section class="hero">
+      <div class="eyebrow">A tiny studio for your PyRevit tools</div>
+      <h1>Give every script<br><span>its own button icon.</span></h1>
+      <p>Upload a Python script. The script's actual Revit operation becomes the hero artwork. Choose a creative visual treatment; Groot influences colour only—bark brown, warm wood, and leaf green. No Groot character, face, body, branch, plant, or mascot artwork is added.</p>
+    </section>
+
+    <main class="workspace">
+      <section class="panel">
+        <div class="panel-head"><h2>Build your icon</h2><span class="step">01 / Upload & customise</span></div>
+        <div class="panel-body">
+          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Choose a Python script">
+            <div class="upload-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M4 16.5v2A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-2"/></svg></div>
+            <strong>Drop your PyRevit script here</strong>
+            <p>or <span class="browse">browse files</span> to choose a .py file</p>
+            <p style="margin-top:10px;font-size:11px;color:#7f95ab">Python script · up to 2 MB</p>
+          </div>
+          <input id="fileInput" type="file" accept=".py,text/x-python,text/plain" />
+          <div class="filebar" id="filebar"><div class="filemeta"><div class="filename" id="filename">script.py</div><div class="filesize" id="filesize"></div></div><button class="text-btn" id="removeFile" type="button">Remove</button></div>
+          <div class="analysis" id="analysis">
+            <h3>What your script appears to do</h3>
+            <div class="detected"><div class="detected-title"><span id="detectIcon">✦</span><span id="detectedTitle">General Revit Tool</span></div><p id="detectedSummary">A general-purpose PyRevit utility.</p><div class="keywords" id="keywords"></div></div>
+            <div class="workflow-card" aria-live="polite">
+              <div class="workflow-heading">Main icon: script-specific Revit operation</div>
+              <div class="workflow-steps" id="workflowSteps">
+                <div class="workflow-step"><span>01</span><b>Select</b></div>
+                <i>→</i><div class="workflow-step"><span>02</span><b>Process</b></div>
+                <i>→</i><div class="workflow-step"><span>03</span><b>Result</b></div>
+              </div>
+              <p class="workflow-note" id="workflowNote">The icon depicts the operation inferred from the script's Revit API calls and keywords.</p>
+            </div>
+          </div>
+          <div class="section-label">Customise the button icon</div>
+          <div class="controls">
+            <div class="field full"><label for="labelInput">Button label</label><input id="labelInput" type="text" maxlength="18" value="My Revit Tool" placeholder="e.g. View Transfer" /></div>
+            <div class="field"><label for="category">Icon symbol</label><select id="category">
+              <option value="auto">Auto-detect from script</option><option value="transfer">View / Sheet Transfer</option><option value="views">Views / Viewports</option><option value="sheets">Sheets / Drawing Sheets</option><option value="walls">Walls / Elements</option><option value="stairs">Stairs / Paths</option><option value="schedule">Schedules / Tables</option><option value="clash">Clash Detection</option><option value="export">Export / Output</option><option value="import">Import / Input</option><option value="door">Doors</option><option value="window">Windows</option><option value="tag">Tags / Annotations</option><option value="dimension">Dimensions</option><option value="level">Levels</option><option value="family">Families</option><option value="model">3D Model</option><option value="gear">General Utility</option>
+            </select></div>
+            <div class="field"><label for="style">Creative treatment</label><select id="style"><option value="isometric">Isometric hero</option><option value="blueprint">Blueprint luxe</option><option value="embossed">Sculpted 3D</option><option value="exploded">Exploded axonometric</option></select></div>
+            <div class="field full"><label>Groot-inspired colour palette only</label><div class="color-row"><input type="hidden" id="color" value="#6F9E4D" aria-label="Selected Groot-inspired palette colour" style="position:absolute;left:-9999px;width:1px;height:1px"/><div class="swatches" id="swatches"><button class="swatch" type="button" data-color="#3B261A" style="background:#3B261A" aria-label="Dark bark" title="Dark bark"></button><button class="swatch" type="button" data-color="#8B5A35" style="background:#8B5A35" aria-label="Bark brown" title="Bark brown"></button><button class="swatch" type="button" data-color="#D2A16B" style="background:#D2A16B" aria-label="Warm wood" title="Warm wood"></button><button class="swatch" type="button" data-color="#6F9E4D" style="background:#6F9E4D" aria-label="Leaf green" title="Leaf green"></button></div></div><p class="palette-note">Choose an accent from Groot’s colour palette. All artwork still depicts the uploaded script’s Revit operation; no Groot character, face, plant or tree motif is added.</p></div>
+          </div>
+          <div class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg><span>Your .py file is read locally by this page. It is not sent to a server, stored, or executed.</span></div>
+        </div>
+      </section>
+
+      <aside class="panel right-panel">
+        <div class="panel-head"><h2>Live preview</h2><span class="step">02 / Export</span></div>
+        <div class="preview-area">
+          <div class="icon-frame"><canvas id="iconCanvas" width="96" height="96" aria-label="96 by 96 pixel icon preview"></canvas></div>
+          <div class="preview-name" id="previewName">My Revit Tool</div><div class="preview-sub" id="previewSub">PyRevit pushbutton icon</div>
+          <div class="size-note"><span>▦</span> PNG · 96 × 96 px</div>
+        </div>
+        <div class="actions">
+          <button class="primary" id="downloadBtn" type="button">Download 96 × 96 PNG</button>
+          <button class="secondary" id="resetBtn" type="button">Reset icon settings</button>
+          <p class="hint">Rich process artwork, simplified to stay readable at 96 × 96 px.</p>
+        </div>
+      </aside>
+    </main>
+
+    <section class="how" aria-label="How it works">
+      <article><div class="num">STEP 01</div><b>Upload a .py file</b><p>Choose any PyRevit script. The page reads the text without running it.</p></article>
+      <article><div class="num">STEP 02</div><b>Review the Revit process</b><p>The 96 × 96 artwork becomes a detailed visual of the detected Revit operation, with perspective, depth and technical detailing. Groot influences only the colours.</p></article>
+      <article><div class="num">STEP 03</div><b>Download & use</b><p>Export a 96 × 96 PNG and place it in your PyRevit button folder.</p></article>
+    </section>
+    <footer><span>PyRevit Icon Studio · Script-derived subject · Groot colours only</span><span>No Revit model access · No script execution · No upload storage</span></footer>
+  </div>
+  <div class="toast" id="toast">PNG downloaded</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const canvas = $('iconCanvas'), ctx = canvas.getContext('2d');
+  let currentFileName = '', currentText = '', detected = 'gear', detectedOperation = null;
+  const patterns = [
+    ['transfer', /(?:view|sheet|viewport).{0,55}(?:transfer|copy|move|duplicate)|(?:transfer|copy|move|duplicate).{0,55}(?:view|sheet|viewport)/gi, 'View / Sheet Transfer', 'Transfers or copies views and sheets between documentation sets.', '⇄'],
+    ['clash', /clash|interference|collision|conflict|coordination|navisworks|overlap/gi, 'Clash Detection', 'Finds or reviews clashes and coordination issues.', '⚡'],
+    ['stairs', /stair|riser|tread|stairpath|stair_path|up.?down/gi, 'Stair Tools', 'Works with stairs, stair paths, arrows or stair annotations.', '↗'],
+    ['schedule', /schedule|schedul|tabular|table|takeoff|quantity|qty/gi, 'Schedule Tools', 'Creates, reads or manages Revit schedules and tabular data.', '▦'],
+    ['sheets', /sheet|title.?block|drawing.?list|sheet.?number|viewport|print.?set/gi, 'Sheet Tools', 'Works with sheets, title blocks, drawing lists or view placement.', '▤'],
+    ['views', /view|section|elevation|plan.?view|callout|crop.?region|view.?template/gi, 'View Tools', 'Works with Revit views, view templates, sections or viewports.', '◉'],
+    ['walls', /wall|floor|ceiling|roof|column|beam|element|host.?object/gi, 'Element Tools', 'Selects or manages building elements such as walls, floors or columns.', '⬡'],
+    ['door', /door|door.?tag/gi, 'Door Tools', 'Works with door elements, parameters or door tags.', '▯'],
+    ['window', /window|glazing|curtain.?wall/gi, 'Window Tools', 'Works with windows, glazing or curtain-wall elements.', '▣'],
+    ['tag', /tag|annotation|text.?note|keynote|callout.?tag/gi, 'Tag & Annotation Tools', 'Creates, checks or manages tags and annotations.', '◇'],
+    ['dimension', /dimension|spot.?elevation|measure|length.?value/gi, 'Dimension Tools', 'Works with dimensions, measurements or spot elevations.', '↔'],
+    ['level', /level|datum|grid.?line|reference.?plane/gi, 'Level & Datum Tools', 'Works with levels, grids or datum references.', '═'],
+    ['family', /family|nested|generic.?model|load.?family|parameter.?binding/gi, 'Family Tools', 'Works with Revit families, nested components or family parameters.', '⬡'],
+    ['export', /export|publish|save.?as|write.?file|csv|excel|xlsx|pdf|dwg|ifc/gi, 'Export Tools', 'Exports Revit information or files to another format.', '↗'],
+    ['import', /import|read.?file|load.?data|csv.?reader|excel.?reader|link.?file/gi, 'Import Tools', 'Reads or brings external data into a workflow.', '↙'],
+    ['model', /3d|model|geometry|solid|mesh|mass|directshape/gi, 'Model Tools', 'Works with model geometry or 3D building elements.', '⬢']
+  ];
+  const descriptions = {
+    transfer:'View / sheet transfer utility',clash:'Clash / coordination utility',stairs:'Stair / path utility',schedule:'Schedule / table utility',sheets:'Sheet / viewport utility',views:'View / viewport utility',walls:'Building element utility',door:'Door utility',window:'Window utility',tag:'Tag / annotation utility',dimension:'Dimension / measurement utility',level:'Level / datum utility',family:'Family / parameter utility',export:'Export / output utility',import:'Import / input utility',model:'3D model / geometry utility',gear:'General Revit utility'
+  };
+  const titles = {transfer:'View / Sheet Transfer',clash:'Clash Detection',stairs:'Stair Tools',schedule:'Schedule Tools',sheets:'Sheet Tools',views:'View Tools',walls:'Element Tools',door:'Door Tools',window:'Window Tools',tag:'Tag Tools',dimension:'Dimension Tools',level:'Level Tools',family:'Family Tools',export:'Export Tools',import:'Import Tools',model:'Model Tools',gear:'General Revit Tool'};
+  function infer(text) {
+    const body = text.toLowerCase();
+    const scored = patterns.map(([key,re]) => {re.lastIndex=0; const m=body.match(re); return {key,score:m?m.length:0};}).sort((a,b)=>b.score-a.score);
+    return scored[0] && scored[0].score > 0 ? scored[0].key : 'gear';
+  }
+  const operationProfiles = {
+    view_transfer:{title:'Transfer views between sheets',summary:'Shows a view being transferred from a source sheet to a target sheet.',steps:['Read source sheet and view','Copy or move the view','Place view on target sheet'],art:'view_transfer'},
+    viewport_place:{title:'Place a view on a sheet',summary:'Shows a Revit view being placed as a viewport on a drawing sheet.',steps:['Choose the Revit view','Create the sheet viewport','Position the view on sheet'],art:'viewport_place'},
+    view_duplicate:{title:'Duplicate a Revit view',summary:'Shows one view being duplicated into a second view.',steps:['Select source view','Duplicate the view','Create the new view'],art:'view_duplicate'},
+    view_template:{title:'Apply a view template',summary:'Shows view settings being transferred from a template to a Revit view.',steps:['Select target view','Read template settings','Apply view template'],art:'view_template'},
+    schedule_create:{title:'Create a Revit schedule',summary:'Shows model elements and their data being organized into a schedule table.',steps:['Collect model elements','Build schedule fields','Create Revit schedule'],art:'schedule_create'},
+    schedule_update:{title:'Update a Revit schedule',summary:'Shows existing schedule data being refreshed from model elements.',steps:['Read schedule and elements','Refresh schedule data','Update schedule view'],art:'schedule_create'},
+    sheet_create:{title:'Create a drawing sheet',summary:'Shows a new Revit sheet being created with a title block.',steps:['Choose title block','Create ViewSheet','Add sheet content'],art:'sheet_create'},
+    stair_path:{title:'Generate a stair path',summary:'Shows a route drawn along the stair treads with direction indication.',steps:['Select Revit stair','Calculate stair route','Draw up / down path'],art:'stair_path'},
+    parameter_update:{title:'Update element parameters',summary:'Shows a selected Revit element and its parameter values being edited.',steps:['Find target elements','Read or set parameters','Update element data'],art:'parameter_update'},
+    tag_create:{title:'Create Revit tags',summary:'Shows a model element receiving a tag and leader annotation.',steps:['Select model elements','Read tag information','Place Revit tags'],art:'tag_create'},
+    dimension_create:{title:'Create dimensions',summary:'Shows two model references being measured with a dimension line.',steps:['Pick reference geometry','Measure distance','Create dimension'],art:'dimension_create'},
+    clash_detection:{title:'Detect model clashes',summary:'Shows two model objects intersecting and being flagged as a clash.',steps:['Collect model objects','Check intersections','Mark detected clashes'],art:'clash_detection'},
+    wall_adjust:{title:'Adjust wall position',summary:'Shows a wall being shifted or aligned to a new position.',steps:['Find target wall','Calculate offset or move','Adjust wall location'],art:'wall_adjust'},
+    element_move:{title:'Move Revit elements',summary:'Shows a selected model element moving from its original position to a new position.',steps:['Select model elements','Apply move or transform','Update element position'],art:'element_move'},
+    element_copy:{title:'Copy Revit elements',summary:'Shows a model element being copied to create a second instance.',steps:['Select source elements','Copy selected elements','Create copied elements'],art:'element_copy'},
+    family_instance:{title:'Place a family instance',summary:'Shows a Revit family component being inserted into the model.',steps:['Choose family type','Set placement point','Create family instance'],art:'family_instance'},
+    family_load:{title:'Load a Revit family',summary:'Shows a family file being loaded into the active Revit project.',steps:['Choose family file','Load family definition','Use family in project'],art:'family_load'},
+    filter_apply:{title:'Apply a view filter',summary:'Shows model elements being filtered and displayed by a Revit view filter.',steps:['Collect target elements','Apply filter rules','Control view visibility'],art:'filter_apply'},
+    export_file:{title:'Export Revit information',summary:'Shows model information being written out to an external file.',steps:['Collect Revit data','Convert or prepare data','Write output file'],art:'export_file'},
+    import_file:{title:'Import external information',summary:'Shows external file data being read and brought into a Revit workflow.',steps:['Read source file','Map data to Revit','Load information'],art:'import_file'},
+    level_create:{title:'Create or manage levels',summary:'Shows level datum lines being created or updated in the Revit model.',steps:['Read level information','Create or edit datums','Update level elevations'],art:'level_create'},
+    element_delete:{title:'Delete Revit elements',summary:'Shows selected model elements being removed from the model.',steps:['Find selected elements','Validate delete targets','Remove elements'],art:'element_delete'},
+    clash_detection:{title:'Detect model clashes',summary:'Shows two model objects intersecting and being flagged as a clash.',steps:['Collect model objects','Check intersections','Mark detected clashes'],art:'clash_detection'},
+    generic_transfer:{title:'Transfer Revit content',summary:'Shows Revit content moving from a source to a destination.',steps:['Read source content','Transfer selected content','Complete destination update'],art:'view_transfer'},
+    generic_stairs:{title:'Work with stair geometry',summary:'Shows a stair and its route or annotation operation.',steps:['Select Revit stair','Run stair operation','Show stair result'],art:'stair_path'},
+    generic_schedule:{title:'Work with a schedule',summary:'Shows Revit data being arranged in a schedule table.',steps:['Collect element data','Arrange schedule fields','Show schedule result'],art:'schedule_create'},
+    generic_sheets:{title:'Work with drawing sheets',summary:'Shows a drawing sheet and its view or title-block content.',steps:['Choose drawing sheet','Update sheet content','Show sheet result'],art:'sheet_create'},
+    generic_views:{title:'Work with Revit views',summary:'Shows a Revit view frame and view-related operation.',steps:['Choose Revit view','Apply view operation','Update view result'],art:'view_template'},
+    generic_walls:{title:'Work with building elements',summary:'Shows a building element being checked or adjusted.',steps:['Find model elements','Apply element operation','Update model result'],art:'wall_adjust'},
+    generic_tag:{title:'Work with annotations',summary:'Shows a model element with a Revit annotation or tag.',steps:['Select model element','Prepare annotation','Place annotation'],art:'tag_create'},
+    generic_dimension:{title:'Work with dimensions',summary:'Shows references measured with a Revit dimension line.',steps:['Pick references','Measure geometry','Show dimension'],art:'dimension_create'},
+    generic_family:{title:'Work with Revit families',summary:'Shows a family component and its nested or parameter data.',steps:['Find family component','Read family data','Update family result'],art:'family_instance'},
+    generic_export:{title:'Export Revit data',summary:'Shows Revit model data being sent to an output file.',steps:['Collect Revit data','Prepare export','Create output file'],art:'export_file'},
+    generic_import:{title:'Import Revit data',summary:'Shows file data being brought into a Revit workflow.',steps:['Read source data','Map fields','Load into Revit'],art:'import_file'},
+    generic_model:{title:'Work with model geometry',summary:'Shows a 3D model element being selected or processed.',steps:['Select model geometry','Run model operation','Show geometry result'],art:'family_instance'},
+    generic_clash:{title:'Coordinate model elements',summary:'Shows intersecting model objects being checked for conflicts.',steps:['Collect model objects','Compare geometry','Review coordination result'],art:'clash_detection'},
+    generic_door:{title:'Work with door elements',summary:'Shows a door element with its properties or annotation.',steps:['Find door elements','Read door properties','Update door result'],art:'parameter_update'},
+    generic_window:{title:'Work with window elements',summary:'Shows a window element with its properties or annotation.',steps:['Find window elements','Read window properties','Update window result'],art:'parameter_update'},
+    generic_level:{title:'Work with levels and datums',summary:'Shows Revit level datum lines and elevation information.',steps:['Read level datums','Check elevations','Update level result'],art:'level_create'},
+    generic_gear:{title:'Run a Revit operation',summary:'Shows a Revit element being selected, processed and updated.',steps:['Read script inputs','Run Revit operation','Show operation result'],art:'parameter_update'}
+  };
+  function detectOperation(source, kind) {
+    const t = String(source || '');
+    const has = re => re.test(t);
+    // Specific Revit API patterns take priority over broad words in comments or filenames.
+    // Resolve exact view operations before the broader transfer/copy patterns.
+    if (has(/ViewDuplicateOption|\.Duplicate\s*\(/i) && has(/View|view/i)) return 'view_duplicate';
+    if (has(/ViewTemplateId|ViewTemplate|ApplyViewTemplate/i)) return 'view_template';
+    if (has(/(?:ViewSheet|Viewport|View).{0,100}(?:transfer|copy|move|duplicate)|(?:transfer|copy|move|duplicate).{0,100}(?:ViewSheet|Viewport|View)|CopyElements[\s\S]{0,180}(?:View|Sheet)|(?:View|Sheet)[\s\S]{0,180}CopyElements/i) && has(/sheet|viewport|view/i)) return 'view_transfer';
+    if (has(/Viewport\.Create|CreateViewport\s*\(/i)) return 'viewport_place';
+    if (has(/Stairs?Path|stair[_\s-]*path|up[_\s-]*down[_\s-]*path|stair.*(?:arrow|route)|(?:arrow|route).*stair/i)) return 'stair_path';
+    if (has(/ScheduleView\.CreateSchedule|CreateSchedule\s*\(|ScheduleSheetInstance\.Create/i)) return 'schedule_create';
+    if (has(/ViewSheet\.Create|CreateSheet\s*\(/i)) return 'sheet_create';
+    if (has(/IndependentTag\.Create|NewTag\s*\(/i)) return 'tag_create';
+    if (has(/NewDimension|Dimension\.Create|NewLinearDimension/i)) return 'dimension_create';
+    if (has(/ParameterFilterElement\.Create|AddFilter\s*\(|SetFilterVisibility|SetFilterOverrides/i)) return 'filter_apply';
+    if (has(/ElementTransformUtils\.MoveElement|ElementTransformUtils\.MoveElements|\.Move\s*\(/i) && has(/wall|Wall|LocationCurve|ElementTransformUtils/i)) return 'wall_adjust';
+    if (has(/ElementTransformUtils\.MoveElement|ElementTransformUtils\.MoveElements|Location\.Move/i)) return 'element_move';
+    if (has(/ElementTransformUtils\.CopyElements|ElementTransformUtils\.CopyElement|\bCopyElements\s*\(/i)) return 'element_copy';
+    if (has(/Parameter\s*\.\s*Set|LookupParameter\s*\(|get_Parameter\s*\(|BuiltInParameter/i) && has(/\.Set\s*\(|LookupParameter|get_Parameter|BuiltInParameter/i)) return 'parameter_update';
+    if (has(/(?:clash|interference|collision|conflict|coordination|Navisworks|BooleanOperationsUtils)/i)) return 'clash_detection';
+    if (has(/Stairs\.Create|StairsRun\.Create|StairsLanding\.Create|StairsRun/i)) return 'generic_stairs';
+    if (has(/NewFamilyInstance|FamilyInstance|\.Place\s*\(/i)) return 'family_instance';
+    if (has(/LoadFamily\s*\(|LoadFamilySymbol/i)) return 'family_load';
+    if (has(/(?:Document|doc)\.Export|Export\s*\(|PrintManager|SaveAs\s*\(/i)) return 'export_file';
+    if (has(/Import\s*\(|Link\s*\(|Excel|openpyxl|csv\.reader|ReadAllText/i) && has(/Revit|Document|Element|Parameter|Family|Sheet|View/i)) return 'import_file';
+    if (has(/Level\.Create|NewLevel|CreateLevel/i)) return 'level_create';
+    if (has(/\.Delete\s*\(|Document\.Delete/i)) return 'element_delete';
+    if (kind === 'transfer') return 'generic_transfer';
+    if (kind === 'stairs') return 'generic_stairs';
+    if (kind === 'schedule') return has(/schedule|schedul/i) ? 'schedule_update' : 'generic_schedule';
+    if (kind === 'sheets') return 'generic_sheets';
+    if (kind === 'views') return 'generic_views';
+    if (kind === 'walls') return 'generic_walls';
+    if (kind === 'tag') return 'generic_tag';
+    if (kind === 'dimension') return 'generic_dimension';
+    if (kind === 'family') return 'generic_family';
+    if (kind === 'export') return 'generic_export';
+    if (kind === 'import') return 'generic_import';
+    if (kind === 'clash') return 'generic_clash';
+    if (kind === 'door') return 'generic_door';
+    if (kind === 'window') return 'generic_window';
+    if (kind === 'level') return 'generic_level';
+    if (kind === 'model') return 'generic_model';
+    return 'generic_gear';
+  }
+  function operationFor(kind, source) {
+    const key = detectOperation(source, kind);
+    return {key, ...(operationProfiles[key] || operationProfiles.generic_gear)};
+  }
+  function updateWorkflow(operation) {
+    $('workflowSteps').innerHTML = '';
+    operation.steps.forEach((label, i) => {
+      const item = document.createElement('div'); item.className = 'workflow-step';
+      const n = document.createElement('span'); n.textContent = '0' + (i + 1);
+      const b = document.createElement('b'); b.textContent = label;
+      item.append(n, b); $('workflowSteps').appendChild(item);
+      if (i < operation.steps.length - 1) { const arrow = document.createElement('i'); arrow.textContent = '→'; $('workflowSteps').appendChild(arrow); }
+    });
+    $('workflowNote').textContent = currentText
+      ? 'This operation is inferred from the uploaded script. Review the steps and icon against the code before using it.'
+      : 'Upload a script to detect its exact Revit operation. The selected category is shown as a visual fallback.';
+  }
+  function humanize(s){return s.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());}
+  function analyse(text,name){
+    detected = infer(text);
+    detectedOperation = operationFor(detected, text);
+    const lines = text.split(/\r?\n/);
+    const candidates=[];
+    for(const line of lines){
+      const m=line.match(/^\s*#\s*(?:title|button|name|description|purpose)\s*[:=-]\s*(.{3,90})/i);
+      if(m)candidates.push(m[1].trim());
+    }
+    const classMatch=text.match(/^\s*class\s+([A-Za-z_][A-Za-z0-9_]*)/m);
+    const defMatches=[...text.matchAll(/^\s*def\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(/gm)].map(m=>m[1]).filter(n=>!['__init__','main','execute','script','get_logger','get_output','get_config'].includes(n));
+    const label = candidates[0] || (classMatch ? humanize(classMatch[1]) : (defMatches[0] ? humanize(defMatches[0]) : humanize(name.replace(/\.py$/i,''))));
+    $('labelInput').value = label.slice(0,18);
+    $('detectedTitle').textContent=detectedOperation.title;
+    $('detectedSummary').textContent=detectedOperation.summary+' '+(candidates[0]?'A script title comment was also found.':'Detected from Revit API calls, method names and script keywords.');
+    $('detectIcon').textContent='↳';
+    const chips=[];
+    for(const [key,re] of patterns){re.lastIndex=0;if(re.test(text)){chips.push(titles[key].replace(' Tools',''));} if(chips.length>=4)break;}
+    $('keywords').innerHTML='';
+    (chips.length?chips:['General']).forEach(t=>{const s=document.createElement('span');s.className='chip';s.textContent=t;$('keywords').appendChild(s);});
+    $('analysis').classList.add('show');
+    $('category').value='auto';
+    render();
+  }
+  function hexRgb(hex){const n=parseInt(hex.slice(1),16);return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+  function shade(hex,amount){const c=hexRgb(hex);return `rgb(${Math.max(0,Math.min(255,c.r+amount))},${Math.max(0,Math.min(255,c.g+amount))},${Math.max(0,Math.min(255,c.b+amount))})`;}
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);}
+  function line(points,width=4){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}
+  function circle(x,y,r,fill=false){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);fill?ctx.fill():ctx.stroke();}
+  function drawGlyph(kind,style,color){
+    const solid=style==='solid', sw=solid?1:4.2;
+    ctx.save();ctx.translate(0,-7);ctx.scale(.88,.74);ctx.strokeStyle='#D2A16B';ctx.fillStyle='#D2A16B';ctx.lineWidth=sw;ctx.lineCap='round';ctx.lineJoin='round';
+    const fillShape=(path)=>{ctx.fill(path)};
+    switch(kind){
+      case 'transfer':
+        // Two independent drawing sheets with a directional transfer arrow.
+        rr(13,24,39,49,5);solid?ctx.fill():ctx.stroke();
+        rr(44,15,39,49,5);solid?ctx.fill():ctx.stroke();
+        ctx.strokeStyle=solid?'#3B261A':color;ctx.lineWidth=3;
+        line([[22,37],[42,37]],3);line([[22,47],[42,47]],3);
+        line([[53,29],[73,29]],3);line([[53,39],[73,39]],3);
+        ctx.strokeStyle='#D2A16B';line([[31,69],[65,69]],4);line([[57,61],[65,69],[57,77]],4);break;
+      case 'views':
+        ctx.beginPath();ctx.moveTo(18,48);ctx.quadraticCurveTo(48,18,78,48);ctx.quadraticCurveTo(48,78,18,48);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.fillStyle=color;circle(48,48,10,true);ctx.fillStyle='#D2A16B';circle(48,48,4,true);break;
+      case 'sheets':
+        rr(25,16,47,64,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#3B261A':color;ctx.lineWidth=3;line([[35,32],[61,32]],3);line([[35,42],[61,42]],3);line([[35,52],[53,52]],3);rr(35,61,16,10,2);solid?ctx.fill():ctx.stroke();break;
+      case 'walls':
+        ctx.beginPath();ctx.moveTo(18,33);ctx.lineTo(48,17);ctx.lineTo(78,33);ctx.lineTo(48,50);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.beginPath();ctx.moveTo(18,33);ctx.lineTo(18,65);ctx.lineTo(48,82);ctx.lineTo(48,50);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.beginPath();ctx.moveTo(78,33);ctx.lineTo(78,65);ctx.lineTo(48,82);ctx.stroke();line([[33,25],[33,41]],2.4);line([[63,25],[63,41]],2.4);break;
+      case 'stairs':
+        line([[20,73],[34,73],[34,59],[48,59],[48,45],[62,45],[62,31],[77,31]],solid?7:4.5);line([[66,23],[77,31],[68,39]],3.5);break;
+      case 'schedule':
+        rr(17,22,62,52,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#3B261A':color;ctx.lineWidth=3;line([[17,38],[79,38]],3);line([[17,55],[79,55]],3);line([[38,22],[38,74]],3);line([[58,22],[58,74]],3);break;
+      case 'clash':
+        circle(38,48,19);circle(58,48,19);if(solid){ctx.fillStyle=color;circle(48,48,11,true);}else{line([[40,40],[56,56]],4);line([[56,40],[40,56]],4);}break;
+      case 'export':
+        rr(18,45,60,31,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle='#D2A16B';line([[48,63],[48,18]],4.5);line([[32,34],[48,18],[64,34]],4.5);break;
+      case 'import':
+        rr(18,22,60,31,5);solid?ctx.fill():ctx.stroke();ctx.strokeStyle='#D2A16B';line([[48,18],[48,63]],4.5);line([[32,48],[48,64],[64,48]],4.5);break;
+      case 'door':
+        ctx.beginPath();ctx.moveTo(28,78);ctx.lineTo(28,20);ctx.lineTo(67,20);ctx.lineTo(67,78);ctx.stroke();ctx.beginPath();ctx.moveTo(37,73);ctx.lineTo(37,28);ctx.lineTo(67,23);ctx.lineTo(67,78);ctx.stroke();circle(58,52,2.5,true);break;
+      case 'window':
+        rr(17,19,62,58,4);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#3B261A':color;ctx.lineWidth=4;line([[48,20],[48,76]],4);line([[18,48],[78,48]],4);break;
+      case 'tag':
+        ctx.beginPath();ctx.moveTo(18,29);ctx.lineTo(57,18);ctx.lineTo(79,40);ctx.lineTo(40,79);ctx.lineTo(18,57);ctx.closePath();solid?ctx.fill():ctx.stroke();ctx.fillStyle=solid?'#3B261A':color;circle(37,38,5,true);break;
+      case 'dimension':
+        line([[20,48],[76,48]],solid?7:3.5);line([[20,48],[31,38]],3.5);line([[20,48],[31,58]],3.5);line([[76,48],[65,38]],3.5);line([[76,48],[65,58]],3.5);line([[28,26],[28,70]],2.2);line([[68,26],[68,70]],2.2);break;
+      case 'level':
+        line([[20,28],[76,28]],solid?7:4);line([[20,48],[76,48]],solid?7:4);line([[20,68],[76,68]],solid?7:4);circle(28,28,4,true);circle(68,48,4,true);circle(40,68,4,true);break;
+      case 'family':
+        rr(23,23,50,50,8);solid?ctx.fill():ctx.stroke();ctx.strokeStyle=solid?'#3B261A':color;ctx.lineWidth=3;rr(37,37,22,22,5);solid?ctx.fill():ctx.stroke();line([[48,11],[48,23]],3);line([[48,73],[48,85]],3);line([[11,48],[23,48]],3);line([[73,48],[85,48]],3);break;
+      case 'model':
+        ctx.beginPath();ctx.moveTo(48,15);ctx.lineTo(78,32);ctx.lineTo(78,64);ctx.lineTo(48,81);ctx.lineTo(18,64);ctx.lineTo(18,32);ctx.closePath();solid?ctx.fill():ctx.stroke();line([[18,32],[48,49],[78,32]],3);line([[48,49],[48,81]],3);break;
+      default:
+        circle(48,48,22);circle(48,48,8);for(let i=0;i<8;i++){ctx.save();ctx.translate(48,48);ctx.rotate(i*Math.PI/4);rr(-5,-34,10,12,3);solid?ctx.fill():ctx.stroke();ctx.restore();}
+    }
+    ctx.restore();
+  }
+  function drawDoc(x,y,w,h, accent='#D2A16B'){
+    ctx.strokeStyle=accent;ctx.lineWidth=2.6;rr(x,y,w,h,3.5);ctx.stroke();
+    line([[x+6,y+10],[x+w-6,y+10]],1.7);line([[x+6,y+17],[x+w-8,y+17]],1.5);
+  }
+  function drawArrow(x1,y1,x2,y2,color='#6F9E4D',width=3){
+    ctx.strokeStyle=color;ctx.fillStyle=color;line([[x1,y1],[x2,y2]],width);
+    const a=Math.atan2(y2-y1,x2-x1),len=7;
+    line([[x2-len*Math.cos(a-.55),y2-len*Math.sin(a-.55)],[x2,y2],[x2-len*Math.cos(a+.55),y2-len*Math.sin(a+.55)]],width);
+  }
+  function drawViewport(x,y,w,h){
+    ctx.strokeStyle='#D2A16B';ctx.lineWidth=2.2;rr(x,y,w,h,2.5);ctx.stroke();
+    line([[x+4,y+5],[x+w-4,y+5]],1.2);line([[x+4,y+h-5],[x+w-4,y+h-5]],1.2);
+    line([[x+5,y+8],[x+w-5,y+h-8]],1.1);line([[x+w-5,y+8],[x+5,y+h-8]],1.1);
+  }
+  // Rich process illustrations. Every composition is built around the Revit action
+  // detected in the uploaded script; the palette is restricted to Groot-inspired earth tones.
+  function drawOperationArtwork(art, style, accentChoice){
+    const dark='#3B261A', bark='#8B5A35', tan='#D2A16B', green=accentChoice || '#6F9E4D', cream='#F0D2A6';
+    const blueprint = style==='blueprint';
+    const embossed = style==='embossed';
+    const exploded = style==='exploded';
+    const lineCol = blueprint ? tan : cream;
+    const accent = green;
+    const strokeW = blueprint ? 1.9 : (embossed ? 3.1 : 2.35);
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+
+    const poly=(pts, fill, stroke=lineCol, width=1.5)=>{
+      ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+      for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);
+      ctx.closePath();
+      if(fill){ctx.fillStyle=fill;ctx.fill();}
+      if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}
+    };
+    const strokePath=(pts,color=lineCol,width=strokeW,dash=[])=>{
+      ctx.save();ctx.setLineDash(dash);ctx.strokeStyle=color;ctx.lineWidth=width;
+      ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+      for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.stroke();ctx.restore();
+    };
+    const dot=(x,y,r,color=green)=>{ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();};
+    const glowDot=(x,y,r,color=green)=>{ctx.save();ctx.shadowColor=color;ctx.shadowBlur=9;dot(x,y,r,color);ctx.restore();};
+    const arrow=(x1,y1,x2,y2,color=green,w=2.5)=>{
+      strokePath([[x1,y1],[x2,y2]],color,w);
+      const a=Math.atan2(y2-y1,x2-x1),l=6.5;
+      strokePath([[x2-l*Math.cos(a-.55),y2-l*Math.sin(a-.55)],[x2,y2],[x2-l*Math.cos(a+.55),y2-l*Math.sin(a+.55)]],color,w);
+    };
+    const curveArrow=(pts,color=green,w=2.5)=>{
+      ctx.save();ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+      ctx.bezierCurveTo(pts[1][0],pts[1][1],pts[2][0],pts[2][1],pts[3][0],pts[3][1]);ctx.stroke();
+      const a=Math.atan2(pts[3][1]-pts[2][1],pts[3][0]-pts[2][0]),l=6;
+      strokePath([[pts[3][0]-l*Math.cos(a-.55),pts[3][1]-l*Math.sin(a-.55)],[pts[3][0],pts[3][1]],[pts[3][0]-l*Math.cos(a+.55),pts[3][1]-l*Math.sin(a+.55)]],color,w);ctx.restore();
+    };
+    const rounded=(x,y,w,h,r,fill,stroke=lineCol,lw=1.6)=>{
+      rr(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}
+    };
+    const isoBlock=(cx,cy,w,h,depth,top=cream,left=bark,right=dark)=>{
+      // Three visible faces of an axonometric Revit mass / family component.
+      const pTop=[[cx,cy-h/2],[cx+w/2,cy-h/4],[cx,cy],[cx-w/2,cy-h/4]];
+      const pLeft=[[cx-w/2,cy-h/4],[cx,cy],[cx,cy+depth],[cx-w/2,cy-h/4+depth]];
+      const pRight=[[cx,cy],[cx+w/2,cy-h/4],[cx+w/2,cy-h/4+depth],[cx,cy+depth]];
+      poly(pLeft,left,lineCol,1.35);poly(pRight,right,lineCol,1.35);poly(pTop,top,lineCol,1.5);
+      if(embossed){strokePath([[cx-w/2+2,cy-h/4+3],[cx,cy+3],[cx+w/2-2,cy-h/4+3]],cream,1.1);}
+      return {cx,cy,w,h,depth};
+    };
+    const paper=(x,y,w,h,accented=false,angle=0)=>{
+      ctx.save();ctx.translate(x+w/2,y+h/2);ctx.rotate(angle);ctx.translate(-w/2,-h/2);
+      ctx.save();ctx.shadowColor='#160C07A8';ctx.shadowBlur=6;ctx.shadowOffsetY=3;
+      rounded(0,0,w,h,3,embossed?'#E4BD8C':'#6E452C',lineCol,1.2);ctx.restore();
+      poly([[w-10,0],[w,10],[w-10,10]],accented?green:tan,lineCol,.8);
+      const topY=13;
+      for(let i=0;i<3;i++)strokePath([[6,topY+i*6],[w-7-(i===2?7:0),topY+i*6]],i===0&&accented?green:tan,1.25);
+      ctx.restore();
+    };
+    const viewport=(x,y,w,h,highlight=false)=>{
+      rounded(x,y,w,h,2,highlight?'#6F9E4D28':'#3B261A80',highlight?green:tan,1.55);
+      // Architectural plan thumbnail: room partitions and a door swing.
+      strokePath([[x+5,y+7],[x+w-5,y+7],[x+w-5,y+h-6],[x+5,y+h-6],[x+5,y+7]],highlight?cream:tan,1);
+      strokePath([[x+w*.48,y+7],[x+w*.48,y+h*.55],[x+w-5,y+h*.55]],tan,1.1);
+      strokePath([[x+5,y+h*.58],[x+w*.32,y+h*.58],[x+w*.32,y+h-6]],tan,1.1);
+      ctx.beginPath();ctx.arc(x+w*.48,y+h*.55,5,Math.PI,Math.PI*1.5);ctx.strokeStyle=green;ctx.lineWidth=1;ctx.stroke();
+    };
+    const callout=(x,y,w,h,text='TAG')=>{
+      rounded(x,y,w,h,3,'#3B261A',green,1.5);
+      strokePath([[x+4,y+h*.38],[x+w-4,y+h*.38]],cream,1);
+      strokePath([[x+4,y+h*.67],[x+w-7,y+h*.67]],tan,.8);
+      dot(x+4,y+h*.18,1.4,green);
+    };
+    const spark=(x,y,s=1)=>{
+      strokePath([[x,y-5*s],[x,y+5*s]],cream,1.2);strokePath([[x-5*s,y],[x+5*s,y]],cream,1.2);
+      strokePath([[x-3*s,y-3*s],[x+3*s,y+3*s]],tan,.8);strokePath([[x+3*s,y-3*s],[x-3*s,y+3*s]],tan,.8);
+    };
+    const tableCard=(x,y,w,h)=>{
+      rounded(x,y,w,h,4,'#4B2E1D',tan,1.5);
+      rounded(x+4,y+5,w-8,9,1,green+'55',green,.8);
+      for(let r=0;r<3;r++){
+        strokePath([[x+4,y+19+r*10],[x+w-4,y+19+r*10]],tan,.85);
+        for(let c=0;c<3;c++)dot(x+8+c*(w-16)/2,y+24+r*10,1.15,c===1&&r===1?green:cream);
+      }
+      strokePath([[x+w*.4,y+15],[x+w*.4,y+h-4]],tan,.75);
+      strokePath([[x+w*.7,y+15],[x+w*.7,y+h-4]],tan,.75);
+    };
+
+    // Blueprint treatment uses drafting geometry; other treatments use depth and shadows.
+    if(blueprint){
+      ctx.save();ctx.strokeStyle='#D2A16B26';ctx.lineWidth=.45;
+      for(let x=10;x<90;x+=10){ctx.beginPath();ctx.moveTo(x,10);ctx.lineTo(x,86);ctx.stroke();}
+      for(let y=10;y<90;y+=10){ctx.beginPath();ctx.moveTo(10,y);ctx.lineTo(86,y);ctx.stroke();}
+      ctx.restore();
+    }
+    if(embossed){
+      ctx.save();ctx.shadowColor='#D2A16B99';ctx.shadowBlur=10;
+      rounded(8,8,80,80,15,'#3B261A65','#D2A16B75',1.2);ctx.restore();
+    }
+
+    switch(art){
+      case 'view_transfer': {
+        // Two angled drawing sheets; a viewport is visibly lifted from source and re-seated on target.
+        paper(7,20,33,52,false,-.10);viewport(12,35,23,22,false);
+        paper(58,17,32,54,true,.08);viewport(63,32,22,23,true);
+        curveArrow([[34,31],[43,15],[57,16],[62,25]],green,2.9);
+        strokePath([[35,56],[46,56],[51,61]],tan,1.1,[2,2]);spark(48,22,.7);glowDot(62,25,2.1);
+        break;
+      }
+      case 'viewport_place': {
+        paper(25,8,51,77,true,-.035);viewport(33,21,35,32,true);
+        // Floating plan viewport snaps into a sheet placement target.
+        rounded(7,57,24,20,3,'#56351F',tan,1.3);strokePath([[11,63],[27,63],[27,73],[11,73],[11,63]],tan,.9);
+        curveArrow([[24,61],[33,51],[43,48],[49,48]],green,2.5);dot(49,48,2.7,green);spark(78,25,.65);break;
+      }
+      case 'view_duplicate': {
+        paper(13,24,43,55,false,-.10);viewport(19,39,30,24,false);
+        paper(42,15,42,56,true,.07);viewport(48,30,29,26,true);
+        curveArrow([[26,17],[35,6],[57,6],[66,15]],green,2.3);spark(70,72,.7);break;
+      }
+      case 'view_template': {
+        paper(7,25,38,50,false,-.07);viewport(12,40,27,24,false);
+        // Parameter/template controls radiate into the view frame.
+        rounded(57,18,31,57,5,'#52331F',green,1.3);
+        for(let i=0;i<3;i++){strokePath([[63,31+i*13],[82,31+i*13]],tan,1.25);dot(68+i*5,31+i*13,2,green);}
+        curveArrow([[43,49],[51,36],[56,37],[61,43]],green,2.8);spark(76,80,.6);break;
+      }
+      case 'schedule_create':
+      case 'schedule_update': {
+        // Isometric model parts flow into a populated schedule grid.
+        isoBlock(22,41,25,25,22,cream,bark,dark);isoBlock(31,61,18,18,15,tan,bark,dark);
+        curveArrow([[38,38],[45,23],[55,24],[58,32]],green,2.8);dot(48,28,2,green);
+        tableCard(57,26,31,49);spark(79,20,.65);break;
+      }
+      case 'sheet_create': {
+        paper(20,8,55,79,true,-.025);viewport(27,23,40,30,true);
+        viewport(27,57,18,17,false);viewport(49,57,18,17,false);
+        rounded(27,78,40,5,1,green,bark,.5);spark(77,18,.6);break;
+      }
+      case 'stair_path': {
+        // Detailed stair profile with stringer, nosings and an illuminated generated route.
+        poly([[9,72],[21,72],[21,61],[33,61],[33,50],[45,50],[45,39],[57,39],[57,28],[70,28],[70,18],[83,18],[83,30],[77,30],[77,40],[64,40],[64,51],[52,51],[52,62],[40,62],[40,73],[28,73],[28,83],[9,83]],bark,tan,1.2);
+        strokePath([[9,72],[21,72],[21,61],[33,61],[33,50],[45,50],[45,39],[57,39],[57,28],[70,28],[70,18],[83,18]],cream,1.35);
+        strokePath([[14,69],[26,69],[26,58],[38,58],[38,47],[50,47],[50,36],[62,36],[62,25],[75,25]],green,3.6);
+        curveArrow([[66,31],[72,26],[76,20],[81,14]],green,2.4);[ [14,69],[38,58],[62,36],[75,25] ].forEach(p=>glowDot(p[0],p[1],1.8));spark(15,55,.6);break;
+      }
+      case 'parameter_update': {
+        // A three-dimensional selected component, linked to a rich property inspector.
+        isoBlock(27,43,33,31,28,cream,bark,dark);
+        rounded(53,16,36,64,5,'#4B2D1C',tan,1.35);
+        strokePath([[59,26],[82,26]],cream,1.2);strokePath([[59,32],[77,32]],tan,.8);
+        for(let i=0;i<3;i++){
+          rounded(59,40+i*11,23,6,2,'#2D1B13',tan,.6);
+          rounded(59,40+i*11, (i===1?17:12),6,2,i===1?green:bark,null,0);
+          dot(i===1?76:71,43+i*11,2,cream);
+        }
+        curveArrow([[42,43],[49,34],[51,38],[57,43]],green,2.6);spark(80,73,.6);break;
+      }
+      case 'tag_create': {
+        // Architectural wall / opening, with a leader snapping to a data tag.
+        isoBlock(32,46,35,31,24,cream,bark,dark);
+        rounded(25,38,14,20,1,'#3B261A',green,1.3);rounded(27,40,10,16,1,'#D2A16B35',tan,.7);
+        strokePath([[39,42],[55,26],[62,26]],green,1.8);dot(39,42,2,green);
+        callout(62,15,26,22,'TAG');strokePath([[75,37],[75,45],[61,55]],tan,1.1);spark(80,65,.6);break;
+      }
+      case 'dimension_create': {
+        // Architectural massing under measurement with extension lines and dimension arrows.
+        isoBlock(47,42,38,36,29,cream,bark,dark);
+        strokePath([[19,20],[19,77]],tan,1.1,[2,2]);strokePath([[75,20],[75,77]],tan,1.1,[2,2]);
+        strokePath([[20,19],[75,19]],green,2.2);arrow(20,19,29,19,green,2);arrow(75,19,66,19,green,2);
+        strokePath([[20,25],[20,72]],tan,.8);strokePath([[75,25],[75,72]],tan,.8);
+        spark(48,18,.55);break;
+      }
+      case 'clash_detection': {
+        // Two contrasting structural members collide in a highlighted coordination zone.
+        ctx.save();ctx.shadowColor=green;ctx.shadowBlur=7;
+        strokePath([[14,25],[79,68]],bark,11);strokePath([[14,25],[79,68]],tan,6);
+        strokePath([[15,70],[79,23]],dark,12);strokePath([[15,70],[79,23]],green,6);ctx.restore();
+        ctx.save();ctx.translate(48,47);ctx.rotate(Math.PI/4);rounded(-8,-8,16,16,2,'#3B261A',tan,1.4);ctx.restore();
+        spark(48,47,1.1);glowDot(48,47,2,cream);break;
+      }
+      case 'wall_adjust': {
+        // Ghosted existing wall and its aligned destination; displacement is the subject.
+        poly([[17,22],[27,17],[27,69],[17,74]],'#8B5A3544',tan,1.3);
+        poly([[61,22],[71,17],[71,69],[61,74]],bark,green,1.7);
+        strokePath([[31,46],[57,46]],green,2.5,[3,2]);arrow(37,46,56,46,green,2.2);
+        strokePath([[22,78],[66,78]],tan,.9);spark(70,22,.6);break;
+      }
+      case 'element_move': {
+        // Transparent source position and solid destination mass with trajectory.
+        isoBlock(24,45,27,25,22,cream+'33',tan+'99',tan+'66');
+        isoBlock(69,43,27,25,22,cream,bark,dark);
+        curveArrow([[32,26],[41,12],[59,12],[66,24]],green,2.8);
+        strokePath([[24,75],[69,75]],tan,.8,[2,2]);spark(66,20,.65);break;
+      }
+      case 'element_copy': {
+        isoBlock(25,44,29,27,23,cream,bark,dark);
+        isoBlock(69,44,29,27,23,tan,bark,green);
+        curveArrow([[33,24],[44,8],[59,8],[68,23]],green,2.7);
+        dot(48,17,2,cream);spark(69,24,.6);break;
+      }
+      case 'family_instance': {
+        // A family component snaps into a host location in the model.
+        poly([[7,56],[33,42],[89,71],[62,86]],'#8B5A3555',tan,1.1);
+        isoBlock(53,41,34,32,28,cream,bark,dark);
+        rounded(43,33,18,27,2,'#3B261A',green,1.7);strokePath([[47,41],[57,41]],tan,1);strokePath([[47,48],[57,48]],tan,1);
+        curveArrow([[26,29],[34,16],[43,17],[49,29]],green,2.5);glowDot(52,60,2.2);break;
+      }
+      case 'family_load': {
+        paper(8,27,28,42,false,-.06);strokePath([[16,41],[28,41]],tan,1);strokePath([[16,48],[28,48]],tan,1);
+        curveArrow([[37,49],[45,34],[54,34],[59,45]],green,2.8);
+        isoBlock(72,44,28,27,23,cream,bark,dark);spark(79,19,.65);break;
+      }
+      case 'filter_apply': {
+        // Multiple model objects pass through a selection funnel; highlighted object is retained.
+        isoBlock(19,31,17,16,15,cream,bark,dark);isoBlock(20,62,17,16,15,tan,bark,dark);isoBlock(40,47,17,16,15,cream,bark,dark);
+        poly([[48,20],[88,20],[74,43],[69,43],[69,68],[61,74],[61,43],[56,43]],green+'66',green,1.5);
+        curveArrow([[37,47],[48,42],[54,43],[61,48]],green,2.3);glowDot(66,53,2.3);break;
+      }
+      case 'export_file': {
+        isoBlock(24,46,31,29,25,cream,bark,dark);
+        curveArrow([[42,36],[48,21],[59,21],[63,31]],green,2.7);
+        paper(62,25,26,48,true,.07);spark(79,17,.65);break;
+      }
+      case 'import_file': {
+        paper(8,24,27,49,false,-.06);curveArrow([[37,48],[44,34],[55,34],[61,46]],green,2.7);
+        isoBlock(73,46,29,28,24,cream,bark,dark);glowDot(61,46,2.2);break;
+      }
+      case 'level_create': {
+        // Multiple datum planes with vertical elevation marker.
+        for(let i=0;i<3;i++){
+          const y=24+i*23;poly([[13,y],[36,y-10],[84,y+1],[61,y+12]],i===1?'#6F9E4D40':'#8B5A353D',i===1?green:tan,1.25);
+          strokePath([[13,y],[61,y+12],[84,y+1]],tan,.8);
+        }
+        strokePath([[35,13],[35,82]],green,2.1);arrow(35,78,35,17,green,2);[24,47,70].forEach(y=>dot(35,y,1.8,cream));break;
+      }
+      case 'element_delete': {
+        // Model fragment is selected, then broken into removed fragments.
+        isoBlock(29,46,34,32,26,cream,bark,dark);
+        curveArrow([[48,45],[57,35],[66,36],[72,45]],green,2.5);
+        poly([[69,52],[80,47],[87,54],[80,68],[70,64]],'#3B261A',tan,1.1);
+        [ [69,30],[78,25],[84,35],[62,62] ].forEach((p,i)=>{dot(p[0],p[1],i===1?2.1:1.4,i%2?green:tan);});spark(79,71,.65);break;
+      }
+      default: {
+        // Distinctive Revit model mass + edit/operation result, not a generic gear.
+        isoBlock(31,47,39,36,30,cream,bark,dark);
+        rounded(61,25,25,45,4,'#4A2D1D',tan,1.3);
+        strokePath([[67,36],[80,36]],cream,1.2);strokePath([[67,44],[78,44]],tan,.8);strokePath([[67,53],[80,53]],green,2.1);
+        curveArrow([[46,47],[53,35],[60,36],[65,43]],green,2.5);spark(78,19,.7);
+      }
+    }
+
+    // Extra graphic language varies by treatment without changing the Revit subject.
+    if(exploded){
+      ctx.save();ctx.strokeStyle=tan;ctx.lineWidth=.8;ctx.setLineDash([2,2]);
+      strokePath([[11,14],[20,21]],tan,.8,[2,2]);strokePath([[85,75],[91,82]],tan,.8,[2,2]);ctx.restore();
+      [ [13,16],[83,13],[86,82],[13,82] ].forEach((p,i)=>{dot(p[0],p[1],1.15,i%2?green:tan);});
+    } else if(embossed){
+      ctx.save();ctx.globalAlpha=.65;strokePath([[11,83],[25,83]],cream,1.2);strokePath([[71,13],[85,13]],green,1.2);ctx.restore();
+    } else if(blueprint){
+      ctx.save();ctx.globalAlpha=.65;strokePath([[11,84],[85,84]],tan,.65,[2,2]);strokePath([[11,12],[11,84]],tan,.65,[2,2]);ctx.restore();
+    } else {
+      spark(84,14,.55);
+    }
+    ctx.restore();
+  }
+  function render(){
+    const kind=$('category').value==='auto'?detected:$('category').value;
+    const operation=$('category').value==='auto'
+      ? (detectedOperation || operationFor(kind, currentText))
+      : operationFor(kind, '');
+    const style=$('style').value;
+    ctx.clearRect(0,0,96,96);
+
+    // Premium app-icon shell, using only Groot-inspired colours.
+    const bg=ctx.createLinearGradient(4,4,91,93);
+    if(style==='blueprint'){
+      bg.addColorStop(0,'#50321F');bg.addColorStop(.58,'#352116');bg.addColorStop(1,'#24160F');
+    } else if(style==='embossed'){
+      bg.addColorStop(0,'#9A6740');bg.addColorStop(.45,'#684027');bg.addColorStop(1,'#302015');
+    } else {
+      bg.addColorStop(0,'#8B5A35');bg.addColorStop(.42,'#684027');bg.addColorStop(1,'#2B1B12');
+    }
+    rr(2.5,2.5,91,91,21);ctx.fillStyle=bg;ctx.fill();
+    ctx.save();rr(3,3,90,90,20);ctx.clip();
+    const glow=ctx.createRadialGradient(31,18,1,43,42,66);
+    glow.addColorStop(0,style==='blueprint'?'#D2A16B20':'#D2A16B55');glow.addColorStop(.55,'#8B5A351A');glow.addColorStop(1,'#3B261A00');
+    ctx.fillStyle=glow;ctx.fillRect(0,0,96,96);
+    // Fine diagonal glints create a crafted, dimensional surface without using a tree motif.
+    if(style==='isometric'||style==='embossed'){
+      ctx.strokeStyle='#D2A16B18';ctx.lineWidth=.7;
+      for(let i=-80;i<150;i+=12){ctx.beginPath();ctx.moveTo(i,4);ctx.lineTo(i+42,94);ctx.stroke();}
+    }
+    ctx.restore();
+    ctx.strokeStyle=style==='blueprint'?'#D2A16B99':'#D2A16B88';ctx.lineWidth=1.1;rr(4,4,88,88,18);ctx.stroke();
+    // Small corner anchors and a baseline make the symbol feel like a designed tool badge.
+    ctx.save();ctx.globalAlpha=.8;ctx.fillStyle='#D2A16B';
+    [[12,12],[84,12],[12,84],[84,84]].forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],.9,0,Math.PI*2);ctx.fill();});
+    ctx.restore();
+    ctx.save();
+    if(style==='embossed'){ctx.shadowColor='#160C07';ctx.shadowBlur=7;ctx.shadowOffsetY=3;}
+    else if(style==='isometric'){ctx.shadowColor='#1B100A';ctx.shadowBlur=5;ctx.shadowOffsetY=2;}
+    drawOperationArtwork(operation.art,style,$('color').value);
+    ctx.restore();
+    if(style==='embossed'){
+      ctx.strokeStyle='#F0D2A633';ctx.lineWidth=.7;rr(6,6,84,84,16);ctx.stroke();
+    }
+    updateWorkflow(operation);
+    const label=$('labelInput').value.trim()||'My Revit Tool';
+    $('previewName').textContent=label;
+    $('previewSub').textContent=operation.title+' · process-led artwork';
+  }
+  function readFile(file){
+    if(!file)return;
+    if(!/\.py$/i.test(file.name)){alert('Please choose a Python .py file.');return;}
+    if(file.size>2*1024*1024){alert('This file is larger than 2 MB. Please choose a smaller script.');return;}
+    const reader=new FileReader();
+    reader.onload=()=>{currentText=String(reader.result||'');currentFileName=file.name;$('filename').textContent=file.name;$('filesize').textContent=(file.size/1024).toFixed(1)+' KB · Read in this browser';$('filebar').classList.add('show');analyse(currentText,file.name);};
+    reader.onerror=()=>alert('The file could not be read. Please try another .py file.');reader.readAsText(file);
+  }
+  $('dropzone').addEventListener('click',()=>$('fileInput').click());
+  $('dropzone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('fileInput').click();}});
+  $('fileInput').addEventListener('change',e=>readFile(e.target.files[0]));
+  ['dragenter','dragover'].forEach(ev=>$('dropzone').addEventListener(ev,e=>{e.preventDefault();$('dropzone').classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>$('dropzone').addEventListener(ev,e=>{e.preventDefault();$('dropzone').classList.remove('drag');}));
+  $('dropzone').addEventListener('drop',e=>readFile(e.dataTransfer.files[0]));
+  $('removeFile').addEventListener('click',()=>{currentText='';currentFileName='';$('fileInput').value='';$('filebar').classList.remove('show');$('analysis').classList.remove('show');$('labelInput').value='My Revit Tool';$('category').value='auto';detected='gear';detectedOperation=operationFor('gear','');render();});
+  ['labelInput','category','style','color'].forEach(id=>$(id).addEventListener('input',render));
+  document.querySelectorAll('.swatch').forEach(b=>b.addEventListener('click',()=>{$('color').value=b.dataset.color;render();}));
+  $('downloadBtn').addEventListener('click',()=>{render();canvas.toBlob(blob=>{if(!blob){alert('Could not create the PNG.');return;}const a=document.createElement('a');const base=($('labelInput').value.trim()||'pyrevit-icon').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'pyrevit_icon';const url=URL.createObjectURL(blob);a.href=url;a.download=base+'_96x96.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('96 × 96 PNG downloaded');},'image/png');});
+  $('resetBtn').addEventListener('click',()=>{$('labelInput').value=currentFileName?humanize(currentFileName.replace(/\.py$/i,'' )).slice(0,18):'My Revit Tool';$('category').value='auto';$('style').value='isometric';$('color').value='#6F9E4D';render();});
+  function showToast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800);}
+  detectedOperation = operationFor('gear','');
+  render();
+})();
+</script>
+</body>
+</html>
